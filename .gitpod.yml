@@ -1,0 +1,15 @@
+image:
+  file: Dockerfile
+ports:
+  - port: 3306
+    onOpen: ignore
+tasks:
+  - name: MySQL
+    init: >
+        /usr/bin/mysqld_safe &
+        sleep 5;
+        mysql -e "create database chat_system";
+        mysql < examples/chat_system.sql;
+  - name: Welcome
+    command: >
+        python3 welcome.py;
